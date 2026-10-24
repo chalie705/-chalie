@@ -30,12 +30,11 @@ export interface Skill {
   level?: number;
   category?: string;
   icon?: string;
-  status?: string;
 }
 
 export interface SkillGroup {
   title: string;
   description?: string;
   icon: string;
-  items: (string | { name: string; status?: string })[];
+  items: string[];
 }

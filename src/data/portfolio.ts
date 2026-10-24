@@ -1,7 +1,7 @@
-import type { Project, Skill } from '../types/project';
+import type { Project, SkillGroup } from '../types/project';
 
 // 1. Re-export types so components importing from portfolio.ts resolve them cleanly
-export type { Project, Skill };
+export type { Project, SkillGroup };
 
 // 2. Re-export projects and category lists
 export { projects, projectCategories } from './projects';
@@ -63,7 +63,7 @@ export const services = [
 ];
 
 // 6. Skill Categories & Tools
-export const skillGroups: Skill[] = [
+export const skillGroups: SkillGroup[] = [
   {
     title: 'Frontend Development',
     icon: 'monitor',
