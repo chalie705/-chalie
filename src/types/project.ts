@@ -27,7 +27,15 @@ export interface Project {
 
 export interface Skill {
   name: string;
-  level: number;
-  category: string;
+  level?: number;
+  category?: string;
   icon?: string;
+  status?: string;
+}
+
+export interface SkillGroup {
+  title: string;
+  description?: string;
+  icon: string;
+  items: (string | { name: string; status?: string })[];
 }
