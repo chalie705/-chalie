@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react'
 import { ArrowUp } from 'lucide-react'
 import Navbar from './sections/Navbar'
@@ -15,16 +16,24 @@ export default function App() {
 
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 600)
+
     window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   return (
     <>
-      <a href="#about" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-white">
+      <a
+        href="#about"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-white"
+      >
         Skip to content
       </a>
+
       <Navbar />
+
       <main>
         <Hero />
         <About />
@@ -34,9 +43,11 @@ export default function App() {
         <Resume />
         <Contact />
       </main>
+
       <footer className="border-t border-line py-8 text-center text-sm text-muted">
         © {new Date().getFullYear()} {profile.name}
       </footer>
+
       {showTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

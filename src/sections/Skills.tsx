@@ -3,7 +3,11 @@ import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import { skillGroups } from '../data/portfolio'
 
-const icons = { monitor: Monitor, database: Database, settings: Settings }
+const icons: Record<string, React.ElementType> = {
+  monitor: Monitor,
+  database: Database,
+  settings: Settings,
+}
 
 export default function Skills() {
   return (
@@ -11,7 +15,7 @@ export default function Skills() {
       <SectionHeading eyebrow="Skills" title="Technologies I work with" />
       <div className="grid gap-6 md:grid-cols-3">
         {skillGroups.map((g, i) => {
-          const Icon = icons[g.icon]
+          const Icon = icons[g.icon] ?? Monitor
           return (
             <Reveal key={g.title} delay={i * 0.08}>
               <div className="card h-full rounded-2xl p-6 transition duration-300 hover:-translate-y-1 hover:border-accent">
@@ -19,7 +23,11 @@ export default function Skills() {
                   <Icon size={24} />
                 </div>
                 <h3 className="mt-5 text-xl font-bold">{g.title}</h3>
-                <p className="mt-2 min-h-[4.5rem] text-sm leading-relaxed text-muted">{g.description}</p>
+                {g.description && (
+                  <p className="mt-2 min-h-[4.5rem] text-sm leading-relaxed text-muted">
+                    {g.description}
+                  </p>
+                )}
 
                 <ul className="mt-5 space-y-3">
                   {g.items.map((item) => (
