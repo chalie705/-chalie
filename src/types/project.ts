@@ -24,3 +24,10 @@ export interface Project {
   challenges?: string;
   lessons?: string;
 }
+
+export interface Skill {
+  name: string;
+  level: number;
+  category: string;
+  icon?: string;
+}

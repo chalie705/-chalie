@@ -30,7 +30,7 @@ export default function Skills() {
                 )}
 
                 <ul className="mt-5 space-y-3">
-                  {g.items.map((item) => (
+                  {g.items.map((item: string) => (
                     <li
                       key={item}
                       className="flex items-center justify-between gap-3 rounded-lg border border-line bg-bg/60 px-4 py-3 text-sm font-medium"
