@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 248 249 252;
+  --surface: 255 255 255;
+  --line: 226 229 238;
+  --fg: 17 20 31;
+  --muted: 100 107 125;
+  --accent: 79 70 229;
+}
+.dark {
+  --bg: 11 12 16;
+  --surface: 20 22 29;
+  --line: 38 41 54;
+  --fg: 244 245 250;
+  --muted: 148 153 170;
+  --accent: 124 140 255;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body { @apply bg-bg text-fg font-sans antialiased; }
+:focus-visible { @apply outline outline-2 outline-offset-2 outline-accent; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-medium transition min-h-[44px]; }
+  .btn-primary { @apply bg-accent text-white dark:text-bg hover:opacity-90; }
+  .btn-ghost { @apply border border-line bg-surface hover:border-accent; }
+  .card { @apply rounded-xl border border-line bg-surface; }
+  .tag { @apply rounded-md border border-line px-2 py-1 text-xs text-muted; }
+}
