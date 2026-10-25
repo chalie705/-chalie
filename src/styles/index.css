@@ -35,3 +35,16 @@ body { @apply bg-bg text-fg font-sans antialiased; }
   .card { @apply rounded-xl border border-line bg-surface; }
   .tag { @apply rounded-md border border-line px-2 py-1 text-xs text-muted; }
 }
+@media print {
+  @page { size: A4; margin: 0; }
+  html, body { height: 100%; overflow: hidden; }
+  body * { visibility: hidden; }
+  .cv-print, .cv-print * { visibility: visible; }
+  .cv-print {
+    position: fixed;
+    inset: 0;
+    box-shadow: none;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
