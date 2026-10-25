@@ -30,6 +30,7 @@ export interface Skill {
   level?: number;
   category?: string;
   icon?: string;
+  status?: 'used' | 'learning';
 }
 
 export interface SkillGroup {
