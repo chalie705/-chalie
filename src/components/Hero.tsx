@@ -1,4 +1,5 @@
 import { Github, Linkedin, ArrowDown, Download } from 'lucide-react';
+import { requestCvDownload } from '../lib/downloadCv';
 
 const techBadges = ['React', 'TypeScript', 'Java', 'PHP', 'MySQL', 'PostgreSQL'];
 
@@ -65,14 +66,14 @@ export default function Hero() {
                 View My Projects
                 <ArrowDown size={16} />
               </a>
-              <a
-                href="/assets/cv.pdf"
-                download
+              <button
+                type="button"
+                onClick={requestCvDownload}
                 className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-[var(--color-text)] bg-[var(--color-card)] border border-[var(--color-border)] hover:border-[var(--color-primary)] rounded-lg transition-all"
               >
                 <Download size={16} />
                 Download CV
-              </a>
+              </button>
             </div>
 
             {/* Social Links */}
@@ -115,7 +116,7 @@ export default function Hero() {
             <div className="relative">
               {/* Soft glow */}
               <div className="absolute -inset-4 rounded-full bg-gradient-to-br from-[var(--color-primary)]/20 to-[var(--color-accent)]/20 blur-2xl" />
-              
+
               {/* Decorative rings */}
               <div className="absolute -inset-3 rounded-full border border-[var(--color-primary)]/25 animate-float" />
               <div className="absolute -inset-6 rounded-full border border-[var(--color-accent)]/15 animate-float" style={{ animationDelay: '1.5s' }} />
