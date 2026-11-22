@@ -1,60 +1,53 @@
 import type { ReactNode } from 'react'
-import { Github, GraduationCap, Link2, Mail, MapPin, Phone, Settings, Star, User, type LucideIcon } from 'lucide-react'
 import { cv } from '../data/cv'
 
-const contactIcons: Record<string, LucideIcon> = {
-  pin: MapPin,
-  phone: Phone,
-  mail: Mail,
-  github: Github,
-  link: Link2,
-}
-
-const Heading = ({ icon: Icon, children }: { icon: LucideIcon; children: ReactNode }) => (
-  <h3 className="mb-2 mt-5 flex items-center gap-2 border-b border-[#1E3A8A] pb-1 text-[13px] font-bold uppercase text-[#1E3A8A]">
-    <Icon size={14} /> {children}
+const Heading = ({ children }: { children: ReactNode }) => (
+  <h3 className="mb-2 mt-5 border-b-2 border-[#0284C7] pb-1 text-[12px] font-bold uppercase tracking-wide text-[#0284C7]">
+    {children}
   </h3>
 )
 
 export default function CvSidebar() {
   return (
-    <aside className="h-full w-[64mm] shrink-0 bg-[#E4EEF8] p-6">
+    <aside className="w-[49mm] shrink-0 border-r border-slate-200 bg-[#F8FAFC] pr-[4mm]">
       <img
         src={cv.photo}
         alt={`Portrait of ${cv.name}`}
-        className="aspect-[4/5] w-full border-2 border-[#1E3A8A] object-cover object-top"
+        className="aspect-[4/5] w-full rounded-[3px] border-2 border-[#0284C7] object-cover object-top"
       />
 
-      <Heading icon={User}>Contact</Heading>
-      <ul className="space-y-1.5 text-[11px] leading-snug">
-        {cv.contact.map((c) => {
-          const Icon = contactIcons[c.icon]
-          return (
-            <li key={c.label} className="flex items-start gap-2 break-all">
-              <Icon size={12} className="mt-0.5 shrink-0 text-[#1E3A8A]" />
-              {c.href ? <a href={c.href} className="text-[#1E3A8A]">{c.label}</a> : <span>{c.label}</span>}
-            </li>
-          )
-        })}
-      </ul>
+      <Heading>Contact</Heading>
+      <div className="space-y-1 text-[11px] leading-snug">
+        {cv.contact.map((c) => (
+          <p key={c.label} className="break-words">
+            {c.href ? <a href={c.href}>{c.label}</a> : c.label}
+          </p>
+        ))}
+        {cv.links.map((l) => (
+          <div key={l.title} className="pt-0.5">
+            <p className="font-bold text-[#0F172A]">{l.title}:</p>
+            <a href={l.href} className="break-words">{l.label}</a>
+          </div>
+        ))}
+      </div>
 
-      <Heading icon={GraduationCap}>Education</Heading>
-      <p className="text-[12px] font-bold">{cv.education.degree}</p>
+      <Heading>Education</Heading>
+      <p className="text-[11px] font-bold text-[#0F172A]">{cv.education.degree}</p>
       <p className="text-[11px]">{cv.education.school}</p>
       <p className="text-[11px]">{cv.education.period}</p>
 
-      <Heading icon={Settings}>Skills</Heading>
+      <Heading>Skills</Heading>
       {cv.skills.map((s) => (
-        <div key={s.category} className="mb-2">
-          <p className="text-[11px] font-bold">{s.category}</p>
+        <div key={s.category} className="mb-1.5">
+          <p className="text-[11px] font-bold text-[#0F172A]">{s.category}</p>
           <p className="text-[10.5px] leading-snug">{s.items}</p>
         </div>
       ))}
 
-      <Heading icon={Star}>Strengths</Heading>
-      <ul className="space-y-0.5 text-[11px]">
+      <Heading>Strengths</Heading>
+      <ul className="list-disc space-y-0.5 pl-4 text-[11px] marker:text-[#0284C7]">
         {cv.strengths.map((s) => (
-          <li key={s}>• {s}</li>
+          <li key={s}>{s}</li>
         ))}
       </ul>
     </aside>
