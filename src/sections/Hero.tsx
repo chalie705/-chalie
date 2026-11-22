@@ -28,3 +28,39 @@ export default function Hero() {
 
           <div className="mt-6 flex gap-3">
             <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub profile" className="text-muted hover:text-fg"><Github /></a>
+            {profile.linkedin && (
+              <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn profile" className="text-muted hover:text-fg"><Linkedin /></a>
+            )}
+          </div>
+        </motion.div>
+
+        {/* Profile card with bottom stats */}
+        <div className="card hidden overflow-hidden rounded-2xl p-3 shadow-2xl lg:block">
+          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-accent/10">
+            <img
+              src={profile.avatar}
+              alt="Portrait of Chalie Melkamu Wagnew"
+              width={320}
+              height={400}
+              className="h-full w-full object-cover object-top"
+            />
+          </div>
+          <div className="mt-3 grid grid-cols-3 gap-2 border-t border-line/50 pt-3 text-center text-xs">
+            <div>
+              <span className="block text-[10px] font-semibold uppercase tracking-wider text-muted">University</span>
+              <span className="font-bold text-fg">{profile.universityShort}</span>
+            </div>
+            <div>
+              <span className="block text-[10px] font-semibold uppercase tracking-wider text-muted">Focus</span>
+              <span className="font-bold text-fg">{profile.focus}</span>
+            </div>
+            <div>
+              <span className="block text-[10px] font-semibold uppercase tracking-wider text-muted">Primary Stack</span>
+              <span className="font-bold text-fg">{profile.primaryStack}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

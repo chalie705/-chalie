@@ -1,79 +1,50 @@
-import { useEffect, useRef, type ReactNode } from 'react';
-import { X, Github, ExternalLink } from 'lucide-react';
-import type { Project } from '../data/portfolio';
-import { profile } from '../data/portfolio';
+import { useEffect, useRef } from 'react'
+import type { ReactNode } from 'react'
+import { X, Github, ExternalLink } from 'lucide-react'
+import { profile, type Project } from '../data/portfolio'
 
-function Block({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) {
+// Placeholder lines start with "TODO", so they are hidden from visitors.
+const real = (s: string) => !s.startsWith('TODO')
+
+function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="mt-6">
-      <h3 className="mb-2 text-sm font-semibold uppercase tracking-wider text-accent">
-        {title}
-      </h3>
+      <h3 className="mb-2 text-sm font-semibold uppercase tracking-wider text-accent">{title}</h3>
       <div className="text-sm leading-relaxed text-muted">{children}</div>
     </section>
-  );
+  )
 }
 
 function List({ items }: { items: string[] }) {
   return (
     <ul className="list-disc space-y-1 pl-5">
-      {items.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
+      {items.map((i) => <li key={i}>{i}</li>)}
     </ul>
-  );
+  )
 }
 
-interface ProjectModalProps {
-  project: Project;
-  onClose: () => void;
-}
-
-export default function ProjectModal({
-  project,
-  onClose,
-}: ProjectModalProps) {
-  const closeRef = useRef<HTMLButtonElement>(null);
+export default function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
+  const closeRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    const previous = document.activeElement as HTMLElement | null;
-
-    closeRef.current?.focus();
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onClose();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    document.body.style.overflow = 'hidden';
-
+    const previous = document.activeElement as HTMLElement | null
+    closeRef.current?.focus()
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
-      previous?.focus();
-    };
-  }, [onClose]);
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+      previous?.focus()
+    }
+  }, [onClose])
 
-  // Fallbacks for unified property access
-  const projectName = project.title ?? project.name ?? 'Project Details';
-  const projectStatus = project.status ?? 'Academic project';
-  const projectOverview = project.fullDescription ?? project.problem ?? project.shortDescription ?? '';
-  const projectObjectives = project.objectives ?? [];
-  const projectContributions = project.contributions ?? [];
-  const projectFeatures = project.features ?? [];
-  const projectStack = project.stack ?? project.technologies ?? [];
-  const projectChallenges = project.challenges ?? 'Maintained clean architecture and modular design principles throughout implementation.';
-  const projectLessons = project.lessons ?? 'Gained practical experience in structured problem-solving and full-stack integration.';
-  const projectRepo = project.githubUrl ?? project.repo ?? profile.github;
-  const projectDemo = project.liveDemoUrl ?? project.demo;
+  const objectives = project.objectives.filter(real)
+  const contributions = project.contributions.filter(real)
+  const features = project.features.filter(real)
+  const stack = project.stack.filter(real)
 
   return (
     <div
@@ -85,22 +56,15 @@ export default function ProjectModal({
         aria-modal="true"
         aria-labelledby="modal-title"
         className="card max-h-[90vh] w-full max-w-2xl overflow-y-auto p-6 sm:p-8"
-        onClick={(event) => event.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 id="modal-title" className="text-2xl font-bold text-white">
-              {projectName}
-            </h2>
-
-            <p className="mt-1 text-sm text-muted">
-              {project.category} · {projectStatus}
-            </p>
+            <h2 id="modal-title" className="text-2xl font-bold">{project.name}</h2>
+            <p className="mt-1 text-sm text-muted">{project.category} · {project.status}</p>
           </div>
-
           <button
             ref={closeRef}
-            type="button"
             onClick={onClose}
             aria-label="Close project details"
             className="btn btn-ghost !px-3"
@@ -109,66 +73,31 @@ export default function ProjectModal({
           </button>
         </div>
 
-        <Block title="Overview">{projectOverview}</Block>
-
-        {projectObjectives.length > 0 && (
-          <Block title="Objectives">
-            <List items={projectObjectives} />
-          </Block>
-        )}
-
-        {projectContributions.length > 0 && (
-          <Block title="My contributions">
-            <List items={projectContributions} />
-          </Block>
-        )}
-
-        {projectFeatures.length > 0 && (
-          <Block title="Key features">
-            <List items={projectFeatures} />
-          </Block>
-        )}
-
-        {projectStack.length > 0 && (
+        <Block title="Overview">{project.problem}</Block>
+        {objectives.length > 0 && <Block title="Objectives"><List items={objectives} /></Block>}
+        {contributions.length > 0 && <Block title="My contributions"><List items={contributions} /></Block>}
+        {features.length > 0 && <Block title="Key features"><List items={features} /></Block>}
+        {stack.length > 0 && (
           <Block title="Technologies">
             <div className="flex flex-wrap gap-2">
-              {projectStack.map((technology: string) => (
-                <span key={technology} className="tag">
-                  {technology}
-                </span>
-              ))}
+              {stack.map((s) => <span key={s} className="tag">{s}</span>)}
             </div>
           </Block>
         )}
-
-        <Block title="Challenges">{projectChallenges}</Block>
-
-        <Block title="Lessons learned">{projectLessons}</Block>
+        {real(project.challenges) && <Block title="Challenges">{project.challenges}</Block>}
+        {real(project.lessons) && <Block title="Lessons learned">{project.lessons}</Block>}
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <a
-            className="btn btn-ghost"
-            href={projectRepo}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Github size={16} />
-            {project.repo || project.githubUrl ? 'Source code' : 'GitHub profile'}
+          <a className="btn btn-ghost" href={project.repo ?? profile.github} target="_blank" rel="noreferrer">
+            <Github size={16} /> {project.repo ? 'Source code' : 'GitHub profile'}
           </a>
-
-          {projectDemo && (
-            <a
-              className="btn btn-primary"
-              href={projectDemo}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ExternalLink size={16} />
-              Live demo
+          {project.demo && (
+            <a className="btn btn-primary" href={project.demo} target="_blank" rel="noreferrer">
+              <ExternalLink size={16} /> Live demo
             </a>
           )}
         </div>
       </div>
     </div>
-  );
+  )
 }
