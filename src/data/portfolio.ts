@@ -1,81 +1,39 @@
-import type { Project, SkillGroup } from '../types/project';
+// All portfolio content lives here. Edit this file to update the site.
 
-// 1. Re-export types so components importing from portfolio.ts resolve them cleanly
-export type { Project, SkillGroup };
-
-// 2. Re-export projects and category lists
-export { projects, projectCategories } from './projects';
-
-// 3. User Profile Information
 export const profile = {
   name: 'Chalie Melkamu Wagnew',
-  greeting: "Hi, I'm Chalie Melkamu Wagnew",
   role: 'Software Engineering Student | Aspiring Full Stack Developer',
-  headline: 'Building Modern Web Applications That Solve Real Problems.',
+  headline: 'Building Practical Digital Solutions Through Code.',
   intro:
-    'I am an undergraduate student in Software Engineering at Injibara University, passionate about creating responsive, user-friendly web applications and practical digital solutions.',
+    "I'm a Software Engineering student passionate about building useful web applications, learning modern technologies, and solving real-world problems through software.",
   email: 'chaliemelkamu6@gmail.com',
   github: 'https://github.com/chalie705',
-  linkedin: '', // Add your LinkedIn URL when available
-  cv: '/Chalie-Melkamu-CV.pdf',
-  university: 'Injibara University',
-  degree: 'Undergraduate Student in Software Engineering',
-  specialization: 'Full Stack Web Development',
-  primaryLanguages: 'TypeScript, JavaScript, PHP',
-  availability: 'Internships (2026)',
-  focus: 'Full Stack Web Dev',
-  primaryStack: 'PHP · MySQL · TS',
+  linkedin: '', // add your real LinkedIn URL; the icon is hidden while empty
+  university: 'Injibara University, Ethiopia',
+  universityShort: 'Injibara University',
   avatar: '/me.webp',
-};
+  focus: 'Full Stack Web',
+  primaryStack: 'React · Node · PostgreSQL',
+}
 
-// 4. About Section Narrative
 export const about = [
-  "I am an undergraduate student in Software Engineering at Injibara University. My technical journey is driven by curiosity, rigorous fundamentals, and an eagerness to build practical applications that streamline organizational tasks.",
-  "Rather than stopping at academic theory, I translate software engineering principles into usable products. My focus spans designing accessible frontend interfaces, constructing robust PHP backend architectures, and modeling efficient MySQL database schemas.",
-];
+  "I'm a fourth-year Software Engineering undergraduate at Injibara University, Ethiopia. I enjoy web development, databases, and application development, and I learn best by building complete projects.",
+  "I'm looking for opportunities to learn and grow, such as internships, collaborative projects, and mentorship, while continuing to improve my skills through academic and personal work.",
+]
 
-// 5. Offered Services
-export const services = [
-  {
-    title: 'Responsive Website Development',
-    icon: 'smartphone',
-    description:
-      'Building fluid, mobile-first websites that render with precision across smartphones, tablets, laptops, and desktop monitors.',
-  },
-  {
-    title: 'Frontend Development',
-    icon: 'code',
-    description:
-      'Writing clean HTML5, modern CSS3, and strongly-typed TypeScript for dynamic, intuitive user interfaces.',
-  },
-  {
-    title: 'PHP Backend Development',
-    icon: 'server',
-    description:
-      'Constructing secure server-side logic, session management, authenticated workflows, and API endpoints.',
-  },
-  {
-    title: 'MySQL Database Design',
-    icon: 'database',
-    description:
-      'Architecting normalized relational schemas, defining table relationships, and writing optimized SQL queries.',
-  },
-];
-
-// 6. Skill Categories & Tools
-export const skillGroups: SkillGroup[] = [
+export const skillGroups = [
   {
     title: 'Frontend Development',
     icon: 'monitor',
     description:
       'Crafting responsive, accessible, and standards-compliant user interfaces across all viewports.',
     items: [
-      'HTML5',
-      'CSS3',
-      'JavaScript',
-      'TypeScript',
+      'HTML5 (Semantic Markup)',
+      'CSS3 (Flexbox & Grid)',
+      'JavaScript (ES6+)',
+      'TypeScript (Strict Typing)',
       'React',
-      'Tailwind CSS',
+      'Responsive Web Design',
     ],
   },
   {
@@ -84,11 +42,13 @@ export const skillGroups: SkillGroup[] = [
     description:
       'Building server-side logic, data validation, and relational database schemas for dynamic systems.',
     items: [
-      'PHP',
+      'PHP (Object-Oriented & Procedural)',
       'Node.js & Express.js',
       'MySQL Database Design',
       'PostgreSQL',
+      'SQL Queries & Optimization',
       'REST API Fundamentals',
+      'Authentication & Sessions',
     ],
   },
   {
@@ -97,28 +57,98 @@ export const skillGroups: SkillGroup[] = [
     description:
       'Version control, local stack virtualization, and developer environments for efficient workflows.',
     items: [
-      'Git & GitHub',
+      'Git Version Control',
+      'GitHub Collaboration',
       'Visual Studio Code',
-      'XAMPP Environment',
-      'Postman',
-      'Linux Administration',
+      'XAMPP / Apache Environment',
+      'Chrome DevTools',
+      'Linux',
     ],
   },
-];
+] as const
 
-// 7. Academic Timeline
+export type Category = 'Full Stack' | 'Frontend' | 'Backend' | 'Mobile'
+export const categories: ('All' | Category)[] = ['All', 'Full Stack']
+
+export interface Project {
+  slug: string
+  name: string
+  category: Category
+  summary: string
+  problem: string
+  objectives: string[]
+  contributions: string[]
+  features: string[]
+  stack: string[]
+  challenges: string
+  lessons: string
+  status: string
+  image?: string // screenshot, e.g. '/projects/clinical.webp' (file goes in public/projects/)
+  repo?: string // add the real repository URL when ready
+  demo?: string // add only if a working deployment exists
+}
+
+// Placeholder text is marked "TODO". Replace it with your real details.
+export const projects: Project[] = [
+  {
+    slug: 'student-registration',
+    name: 'Student Registration Management System',
+    category: 'Full Stack',
+    image: '/projects/registration.webp',
+    summary: 'Handles student registration, records, and role-based dashboards for a school setting.',
+    problem: 'Paper-based registration makes tracking students and courses difficult.',
+    objectives: ['Digitize registration', 'Give each role a tailored dashboard'],
+    contributions: ['TODO: describe what you personally built'],
+    features: ['Role-based access', 'TODO: add more features'],
+    stack: ['React', 'Node.js', 'Express.js', 'PostgreSQL'],
+    challenges: 'TODO: describe a challenge you faced.',
+    lessons: 'TODO: describe what you learned.',
+    status: 'Academic project',
+  },
+  {
+    slug: 'human-resource-management',
+    name: 'Human Resource Management System',
+    category: 'Full Stack',
+    // no image yet: the card shows a folder icon
+    summary: 'Supports core HR workflows such as staff records, leave, and reporting.',
+    problem: 'HR tasks handled manually are hard to track and audit.',
+    objectives: ['Streamline HR processes', 'Improve record accuracy'],
+    contributions: ['TODO: describe what you personally built'],
+    features: ['TODO: list key features'],
+    stack: ['React', 'Node.js', 'Express', 'PostgreSQL'],
+    challenges: 'TODO: describe a challenge you faced.',
+    lessons: 'TODO: describe what you learned.',
+    status: 'Academic project',
+  },
+  {
+    slug: 'clinical-management',
+    name: 'Clinical Management System',
+    category: 'Full Stack',
+    image: '/projects/clinical.webp',
+    summary: 'A full-stack web app for managing clinic patients, visits, and staff.',
+    problem: 'Clinics need organized patient and appointment records.',
+    objectives: ['Manage patient records', 'Support clinic staff workflows'],
+    contributions: ['TODO: describe what you personally built'],
+    features: ['TODO: list key features'],
+    stack: ['TODO: update stack'],
+    challenges: 'TODO: describe a challenge you faced.',
+    lessons: 'TODO: describe what you learned.',
+    status: 'Academic project',
+  },
+]
+
 export const timeline = [
   {
     type: 'Education',
     title: 'B.Sc. Software Engineering, fourth year',
     place: 'Injibara University, Ethiopia',
-    note: 'Studying software engineering, databases, system architecture, and web application development.',
+    note: 'Studying software engineering, databases, and web and application development.',
   },
   {
     type: 'Academic projects',
-    title: 'Management systems and full-stack applications',
+    title: 'Management systems',
     place: 'University coursework',
-    note: 'Built full-stack management systems with PHP, MySQL, React, and TypeScript.',
+    note: 'Built full-stack projects as part of academic work (see Projects).',
   },
   {
     type: 'Self-learning',
@@ -126,13 +156,5 @@ export const timeline = [
     place: 'Personal development',
     note: 'Practicing React, TypeScript, Node.js, PostgreSQL, and Linux through hands-on building.',
   },
-];
-
-// 8. Filter Categories (and category alias for backward compatibility)
-export const categories = [
-  'All',
-  'Web Development',
-  'Desktop Applications',
-  'Database Systems',
-  'Full Stack',
-] as const;
+  // Add internship or employment entries here only when they are real and verified.
+]
